@@ -1,0 +1,48 @@
+++-> Yunux Example Project: Advanced Pentest Tool
+
+++-> Import necessary Yunux libraries
+import "yunux.security"
+import "yunux.web"
+
+++-> Define a function to scan ports on a given IP address
+func scan_ports(ip, ports) {
+    var open_ports = security.port_scan(ip, ports)
+    return open_ports
+}
+
+++-> Define a function to perform vulnerability scan
+func vulnerability_scan(ip) {
+    var vulnerabilities = security.vuln_scan(ip)
+    return vulnerabilities
+}
+
+++-> Define main function
+func main() {
+    ++-> User input for IP address and ports to scan
+    print("Enter the IP address to scan:")
+    var ip = input()
+    print("Enter the ports to scan (comma-separated):")
+    var ports_input = input()
+    
+    ++-> Convert the input ports to a list of integers
+    var ports = ports_input.split(",").map(func (p) {
+        return int(p.trim())
+    })
+    
+    ++-> Perform port scan and display results
+    var scan_results = scan_ports(ip, ports)
+    print("Port Scan Results:")
+    loop (var i = 0, i < scan_results.length(), i++) {
+        print("Port " + scan_results[i].port + ": " + scan_results[i].status)
+    }
+    
+    ++-> Perform vulnerability scan and display results
+    var vuln_results = vulnerability_scan(ip)
+    print("Vulnerability Scan Results:")
+    loop (var i = 0, i < vuln_results.length(), i++) {
+        print("Vulnerability " + vuln_results[i].name + ": " + vuln_results[i].description)
+    }
+}
+
+++-> Call the main function
+main()
