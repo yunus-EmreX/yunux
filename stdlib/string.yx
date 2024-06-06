@@ -1,0 +1,8 @@
+# Yunux String Standard Library
+func length(s: string) -> int {
+    return s.length
+}
+
+func concatenate(s1: string, s2: string) -> string {
+    return s1 + s2
+}
